@@ -1312,17 +1312,16 @@
 <audio id="player" preload="none"></audio>
 
 <script>
+
 const words = [{"thai": "เป็น", "roman": "bpen"}, {"thai": "มี", "roman": "mee"}, {"thai": "ทำ", "roman": "tam"}, {"thai": "ไป", "roman": "bpai"}, {"thai": "มา", "roman": "maa"}, {"thai": "อยู่", "roman": "yòo"}, {"thai": "ให้", "roman": "hâi"}, {"thai": "เอา", "roman": "ao"}, {"thai": "ได้", "roman": "dâai"}, {"thai": "ใช้", "roman": "chái"}, {"thai": "รู้", "roman": "róo"}, {"thai": "เห็น", "roman": "hĕn"}, {"thai": "ดู", "roman": "doo"}, {"thai": "ฟัง", "roman": "fang"}, {"thai": "พูด", "roman": "pôot"}, {"thai": "บอก", "roman": "bòk"}, {"thai": "ถาม", "roman": "tăam"}, {"thai": "ตอบ", "roman": "dtòp"}, {"thai": "คิด", "roman": "kít"}, {"thai": "อยาก", "roman": "yàak"}, {"thai": "กิน", "roman": "gin"}, {"thai": "ทาน", "roman": "taan"}, {"thai": "ดื่ม", "roman": "dèum"}, {"thai": "ชิม", "roman": "chim"}, {"thai": "หิว", "roman": "hĭw"}, {"thai": "อิ่ม", "roman": "ìm"}, {"thai": "ทำอาหาร", "roman": "tam aa-hăan"}, {"thai": "หุง", "roman": "hŭng"}, {"thai": "ต้ม", "roman": "dtôm"}, {"thai": "ทอด", "roman": "tôt"}, {"thai": "ผัด", "roman": "pàt"}, {"thai": "ย่าง", "roman": "yâang"}, {"thai": "นึ่ง", "roman": "nêung"}, {"thai": "อบ", "roman": "òp"}, {"thai": "หั่น", "roman": "hàn"}, {"thai": "ปอก", "roman": "bpòk"}, {"thai": "ตัก", "roman": "dtàk"}, {"thai": "เท", "roman": "tay"}, {"thai": "สั่ง", "roman": "sàng"}, {"thai": "เสิร์ฟ", "roman": "sèrf"}, {"thai": "เดิน", "roman": "dern"}, {"thai": "วิ่ง", "roman": "wîng"}, {"thai": "ยืน", "roman": "yeun"}, {"thai": "นั่ง", "roman": "nâng"}, {"thai": "นอน", "roman": "non"}, {"thai": "กระโดด", "roman": "grà-dòht"}, {"thai": "คลาน", "roman": "klaan"}, {"thai": "ปีน", "roman": "bpeen"}, {"thai": "ว่ายน้ำ", "roman": "wâai náam"}, {"thai": "ขับ", "roman": "kàp"}, {"thai": "ขี่", "roman": "kèe"}, {"thai": "บิน", "roman": "bin"}, {"thai": "ขึ้น", "roman": "kêun"}, {"thai": "ลง", "roman": "long"}, {"thai": "เข้า", "roman": "kâo"}, {"thai": "ออก", "roman": "òk"}, {"thai": "กลับ", "roman": "glàp"}, {"thai": "ถึง", "roman": "tĕung"}, {"thai": "เดินทาง", "roman": "dern taang"}, {"thai": "หยุด", "roman": "yùt"}, {"thai": "คุย", "roman": "kui"}, {"thai": "เล่า", "roman": "lâo"}, {"thai": "อธิบาย", "roman": "à-tí-baai"}, {"thai": "แปล", "roman": "bplae"}, {"thai": "เรียก", "roman": "rîiak"}, {"thai": "โทร", "roman": "toh"}, {"thai": "ทักทาย", "roman": "ták taai"}, {"thai": "ตะโกน", "roman": "dtà-gohn"}, {"thai": "กระซิบ", "roman": "grà-síp"}, {"thai": "เถียง", "roman": "tĭiang"}, {"thai": "บ่น", "roman": "bòn"}, {"thai": "ชม", "roman": "chom"}, {"thai": "ขอ", "roman": "kŏr"}, {"thai": "ขอโทษ", "roman": "kŏr tôht"}, {"thai": "ขอบคุณ", "roman": "kòp kun"}, {"thai": "ตกลง", "roman": "dtòk long"}, {"thai": "ปฏิเสธ", "roman": "bpà-dtì-sèt"}, {"thai": "แนะนำ", "roman": "náe nam"}, {"thai": "เชิญ", "roman": "chern"}, {"thai": "สัญญา", "roman": "săn-yaa"}, {"thai": "เรียน", "roman": "riian"}, {"thai": "สอน", "roman": "sŏn"}, {"thai": "อ่าน", "roman": "àan"}, {"thai": "เขียน", "roman": "kĭian"}, {"thai": "จำ", "roman": "jam"}, {"thai": "ลืม", "roman": "leum"}, {"thai": "ท่อง", "roman": "tông"}, {"thai": "เข้าใจ", "roman": "kâo jai"}, {"thai": "รู้จัก", "roman": "róo jàk"}, {"thai": "เรียนรู้", "roman": "riian róo"}, {"thai": "ฝึก", "roman": "fèuk"}, {"thai": "ทบทวน", "roman": "tóp tuuan"}, {"thai": "สงสัย", "roman": "sŏng-săi"}, {"thai": "ตัดสินใจ", "roman": "dtàt sĭn jai"}, {"thai": "วางแผน", "roman": "waang păen"}, {"thai": "เดา", "roman": "dao"}, {"thai": "สังเกต", "roman": "săng-gèt"}, {"thai": "เปรียบเทียบ", "roman": "bprìiap tîiap"}, {"thai": "คำนวณ", "roman": "kam-nuuan"}, {"thai": "สอบ", "roman": "sòp"}];
 let activeFilter = "all";
 let currentButton = null;
-let endpointIndex = 0;
 const player = document.getElementById("player");
 const status = document.getElementById("status");
 
-const endpoints = [
-  w => "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=th&q=" + encodeURIComponent(w),
-  w => "https://translate.googleapis.com/translate_tts?ie=UTF-8&client=gtx&tl=th&q=" + encodeURIComponent(w)
-];
+function audioSrc(index){
+  return "audio/word-" + String(index + 1).padStart(3, "0") + ".mp3";
+}
 
 function setFilter(value, btn){
   activeFilter = value;
@@ -1344,48 +1343,22 @@ function resetButtons(){
   document.querySelectorAll(".card").forEach(b => b.classList.remove("playing"));
 }
 
-function browserThaiFallback(item){
-  if (!("speechSynthesis" in window)) return failAudio();
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(item.thai);
-  u.lang = "th-TH";
-  u.rate = 0.76;
-  const voices = speechSynthesis.getVoices();
-  const thVoice = voices.find(v => (v.lang || "").toLowerCase().startsWith("th"));
-  if (thVoice) u.voice = thVoice;
-  u.onend = () => { resetButtons(); status.textContent = ""; };
-  u.onerror = failAudio;
-  speechSynthesis.speak(u);
-}
-
 function playWord(index, button){
   const item = words[index];
   currentButton = button;
-  endpointIndex = 0;
   resetButtons();
   button.classList.add("playing");
   status.textContent = "מנגן: " + item.thai + " (" + item.roman + ")";
   player.pause();
-  player.src = endpoints[0](item.thai);
+  player.src = audioSrc(index);
   player.currentTime = 0;
   const p = player.play();
-  if (p && p.catch) p.catch(() => tryNext(item));
-}
-
-function tryNext(item){
-  endpointIndex++;
-  if (endpointIndex < endpoints.length){
-    player.src = endpoints[endpointIndex](item.thai);
-    const p = player.play();
-    if (p && p.catch) p.catch(() => browserThaiFallback(item));
-  } else {
-    browserThaiFallback(item);
-  }
+  if (p && p.catch) p.catch(failAudio);
 }
 
 function failAudio(){
   resetButtons();
-  status.textContent = "האודיו נחסם בדפדפן. מומלץ לפתוח ב‑Chrome או Edge ולוודא שיש חיבור לאינטרנט.";
+  status.textContent = "לא הצלחתי לנגן את קובץ השמע. רענן את העמוד ונסה שוב.";
 }
 
 player.addEventListener("ended", () => {
@@ -1393,11 +1366,8 @@ player.addEventListener("ended", () => {
   status.textContent = "";
 });
 
-player.addEventListener("error", () => {
-  if (!currentButton) return;
-  const item = words[Number(currentButton.querySelector(".num").textContent)-1];
-  tryNext(item);
-});
+player.addEventListener("error", failAudio);
+
 </script>
 </body>
 </html>
