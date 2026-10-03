@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>100 Thai Verbs — כרטיסיות שמע</title>
+<title>אוצר מילים בתאית — כרטיסיות שמע</title>
 <style>
   :root{
     --bg:#154f48;
@@ -25,6 +25,7 @@
     display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;
     margin:18px auto 22px;
   }
+  .filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
   .search{
     width:min(420px,100%);background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);
     color:white;border-radius:14px;padding:11px 14px;font-size:15px;outline:none;
@@ -44,6 +45,7 @@
   .card{
     position:relative;
     direction:rtl;
+    overflow:hidden;
     min-height:175px;
     border:1px solid rgba(255,255,255,.14);
     border-top:5px solid var(--accent);
@@ -64,7 +66,7 @@
   }
   .topline{direction:ltr;display:flex;align-items:center;justify-content:space-between;height:26px}
   .num{
-    min-width:26px;height:26px;border-radius:9px;background:rgba(255,255,255,.12);
+    min-width:32px;height:26px;padding:0 5px;border-radius:9px;background:rgba(255,255,255,.12);
     display:grid;place-items:center;font-size:12px;font-weight:800;
   }
   .play{
@@ -73,6 +75,7 @@
   }
   .thai{font-size:32px;font-weight:850;text-align:center;line-height:1.12;margin-top:4px}
   .roman{direction:ltr;text-align:center;font-size:17px;font-weight:800;margin-top:5px}
+  .thai,.roman,.meaning{overflow-wrap:anywhere}
   .meaning{
     position:relative;
     text-align:center;
@@ -113,1259 +116,126 @@
 <body>
 <div class="wrap">
   <div class="header">
-    <h1>100 פעלים בתאית</h1>
-    <div class="sub">לחץ על כל כרטיס כדי לשמוע את ההגייה · תאית + תעתיק + פירוש בעברית</div>
+    <h1>אוצר מילים בתאית</h1>
+    <div class="sub">לחץ על כרטיס כדי לשמוע הגייה ולחשוף את הפירוש · תאית + תעתיק + עברית</div>
   </div>
 
   <div class="toolbar">
-    <input class="search" id="search" type="search" placeholder="חיפוש בתאית, בתעתיק או בעברית…" oninput="applyFilters()">
-    <button class="filter active" data-filter="all" onclick="setFilter('all',this)">הכול</button>
-    <button class="filter" data-filter="1" onclick="setFilter('1',this)">יומיום</button>
-    <button class="filter" data-filter="2" onclick="setFilter('2',this)">אוכל</button>
-    <button class="filter" data-filter="3" onclick="setFilter('3',this)">תנועה</button>
-    <button class="filter" data-filter="4" onclick="setFilter('4',this)">תקשורת</button>
-    <button class="filter" data-filter="5" onclick="setFilter('5',this)">לימוד</button>
+    <input class="search" id="search" type="search" placeholder="חיפוש בתאית, בתעתיק או בעברית…" aria-label="חיפוש באוצר המילים">
+    <div class="filters" id="filters" aria-label="סינון לפי קטגוריה"></div>
   </div>
 
-  <div class="grid">
-    
-      <button class="card" data-set="1" data-search="เป็น bpen להיות" 
-              style="--accent:#278879" onclick="playWord(0, this)" aria-label="เป็น להיות">
-        <div class="topline">
-          <span class="num">1</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เป็น</div>
-        <div class="roman">bpen</div>
-        <div class="meaning">להיות</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="มี mee יש / להיות בעל" 
-              style="--accent:#278879" onclick="playWord(1, this)" aria-label="มี יש / להיות בעל">
-        <div class="topline">
-          <span class="num">2</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">มี</div>
-        <div class="roman">mee</div>
-        <div class="meaning">יש / להיות בעל</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ทำ tam לעשות / להכין" 
-              style="--accent:#278879" onclick="playWord(2, this)" aria-label="ทำ לעשות / להכין">
-        <div class="topline">
-          <span class="num">3</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ทำ</div>
-        <div class="roman">tam</div>
-        <div class="meaning">לעשות / להכין</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ไป bpai ללכת / לנסוע" 
-              style="--accent:#278879" onclick="playWord(3, this)" aria-label="ไป ללכת / לנסוע">
-        <div class="topline">
-          <span class="num">4</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ไป</div>
-        <div class="roman">bpai</div>
-        <div class="meaning">ללכת / לנסוע</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="มา maa לבוא / להגיע" 
-              style="--accent:#278879" onclick="playWord(4, this)" aria-label="มา לבוא / להגיע">
-        <div class="topline">
-          <span class="num">5</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">มา</div>
-        <div class="roman">maa</div>
-        <div class="meaning">לבוא / להגיע</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="อยู่ yòo להיות / להימצא / להישאר" 
-              style="--accent:#278879" onclick="playWord(5, this)" aria-label="อยู่ להיות / להימצא / להישאר">
-        <div class="topline">
-          <span class="num">6</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">อยู่</div>
-        <div class="roman">yòo</div>
-        <div class="meaning">להיות / להימצא / להישאר</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ให้ hâi לתת" 
-              style="--accent:#278879" onclick="playWord(6, this)" aria-label="ให้ לתת">
-        <div class="topline">
-          <span class="num">7</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ให้</div>
-        <div class="roman">hâi</div>
-        <div class="meaning">לתת</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="เอา ao לקחת / לרצות" 
-              style="--accent:#278879" onclick="playWord(7, this)" aria-label="เอา לקחת / לרצות">
-        <div class="topline">
-          <span class="num">8</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เอา</div>
-        <div class="roman">ao</div>
-        <div class="meaning">לקחת / לרצות</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ได้ dâai לקבל / יכול" 
-              style="--accent:#278879" onclick="playWord(8, this)" aria-label="ได้ לקבל / יכול">
-        <div class="topline">
-          <span class="num">9</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ได้</div>
-        <div class="roman">dâai</div>
-        <div class="meaning">לקבל / יכול</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ใช้ chái להשתמש" 
-              style="--accent:#278879" onclick="playWord(9, this)" aria-label="ใช้ להשתמש">
-        <div class="topline">
-          <span class="num">10</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ใช้</div>
-        <div class="roman">chái</div>
-        <div class="meaning">להשתמש</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="รู้ róo לדעת" 
-              style="--accent:#278879" onclick="playWord(10, this)" aria-label="รู้ לדעת">
-        <div class="topline">
-          <span class="num">11</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">รู้</div>
-        <div class="roman">róo</div>
-        <div class="meaning">לדעת</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="เห็น hĕn לראות" 
-              style="--accent:#278879" onclick="playWord(11, this)" aria-label="เห็น לראות">
-        <div class="topline">
-          <span class="num">12</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เห็น</div>
-        <div class="roman">hĕn</div>
-        <div class="meaning">לראות</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ดู doo להסתכל / לצפות" 
-              style="--accent:#278879" onclick="playWord(12, this)" aria-label="ดู להסתכל / לצפות">
-        <div class="topline">
-          <span class="num">13</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ดู</div>
-        <div class="roman">doo</div>
-        <div class="meaning">להסתכל / לצפות</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ฟัง fang להקשיב" 
-              style="--accent:#278879" onclick="playWord(13, this)" aria-label="ฟัง להקשיב">
-        <div class="topline">
-          <span class="num">14</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ฟัง</div>
-        <div class="roman">fang</div>
-        <div class="meaning">להקשיב</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="พูด pôot לדבר" 
-              style="--accent:#278879" onclick="playWord(14, this)" aria-label="พูด לדבר">
-        <div class="topline">
-          <span class="num">15</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">พูด</div>
-        <div class="roman">pôot</div>
-        <div class="meaning">לדבר</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="บอก bòk לספר / לומר" 
-              style="--accent:#278879" onclick="playWord(15, this)" aria-label="บอก לספר / לומר">
-        <div class="topline">
-          <span class="num">16</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">บอก</div>
-        <div class="roman">bòk</div>
-        <div class="meaning">לספר / לומר</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ถาม tăam לשאול" 
-              style="--accent:#278879" onclick="playWord(16, this)" aria-label="ถาม לשאול">
-        <div class="topline">
-          <span class="num">17</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ถาม</div>
-        <div class="roman">tăam</div>
-        <div class="meaning">לשאול</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="ตอบ dtòp לענות" 
-              style="--accent:#278879" onclick="playWord(17, this)" aria-label="ตอบ לענות">
-        <div class="topline">
-          <span class="num">18</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ตอบ</div>
-        <div class="roman">dtòp</div>
-        <div class="meaning">לענות</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="คิด kít לחשוב" 
-              style="--accent:#278879" onclick="playWord(18, this)" aria-label="คิด לחשוב">
-        <div class="topline">
-          <span class="num">19</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">คิด</div>
-        <div class="roman">kít</div>
-        <div class="meaning">לחשוב</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="1" data-search="อยาก yàak לרצות ל־" 
-              style="--accent:#278879" onclick="playWord(19, this)" aria-label="อยาก לרצות ל־">
-        <div class="topline">
-          <span class="num">20</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">อยาก</div>
-        <div class="roman">yàak</div>
-        <div class="meaning">לרצות ל־</div>
-        <div class="setname">פעלים יומיומיים</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="กิน gin לאכול" 
-              style="--accent:#3d78ba" onclick="playWord(20, this)" aria-label="กิน לאכול">
-        <div class="topline">
-          <span class="num">21</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">กิน</div>
-        <div class="roman">gin</div>
-        <div class="meaning">לאכול</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ทาน taan לאכול (מנומס)" 
-              style="--accent:#3d78ba" onclick="playWord(21, this)" aria-label="ทาน לאכול (מנומס)">
-        <div class="topline">
-          <span class="num">22</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ทาน</div>
-        <div class="roman">taan</div>
-        <div class="meaning">לאכול (מנומס)</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ดื่ม dèum לשתות" 
-              style="--accent:#3d78ba" onclick="playWord(22, this)" aria-label="ดื่ม לשתות">
-        <div class="topline">
-          <span class="num">23</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ดื่ม</div>
-        <div class="roman">dèum</div>
-        <div class="meaning">לשתות</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ชิม chim לטעום" 
-              style="--accent:#3d78ba" onclick="playWord(23, this)" aria-label="ชิม לטעום">
-        <div class="topline">
-          <span class="num">24</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ชิม</div>
-        <div class="roman">chim</div>
-        <div class="meaning">לטעום</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="หิว hĭw להיות רעב" 
-              style="--accent:#3d78ba" onclick="playWord(24, this)" aria-label="หิว להיות רעב">
-        <div class="topline">
-          <span class="num">25</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">หิว</div>
-        <div class="roman">hĭw</div>
-        <div class="meaning">להיות רעב</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="อิ่ม ìm להיות שבע" 
-              style="--accent:#3d78ba" onclick="playWord(25, this)" aria-label="อิ่ม להיות שבע">
-        <div class="topline">
-          <span class="num">26</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">อิ่ม</div>
-        <div class="roman">ìm</div>
-        <div class="meaning">להיות שבע</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ทำอาหาร tam aa-hăan לבשל / להכין אוכל" 
-              style="--accent:#3d78ba" onclick="playWord(26, this)" aria-label="ทำอาหาร לבשל / להכין אוכל">
-        <div class="topline">
-          <span class="num">27</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ทำอาหาร</div>
-        <div class="roman">tam aa-hăan</div>
-        <div class="meaning">לבשל / להכין אוכל</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="หุง hŭng לבשל אורז" 
-              style="--accent:#3d78ba" onclick="playWord(27, this)" aria-label="หุง לבשל אורז">
-        <div class="topline">
-          <span class="num">28</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">หุง</div>
-        <div class="roman">hŭng</div>
-        <div class="meaning">לבשל אורז</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ต้ม dtôm להרתיח / לבשל במים" 
-              style="--accent:#3d78ba" onclick="playWord(28, this)" aria-label="ต้ม להרתיח / לבשל במים">
-        <div class="topline">
-          <span class="num">29</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ต้ม</div>
-        <div class="roman">dtôm</div>
-        <div class="meaning">להרתיח / לבשל במים</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ทอด tôt לטגן בשמן עמוק" 
-              style="--accent:#3d78ba" onclick="playWord(29, this)" aria-label="ทอด לטגן בשמן עמוק">
-        <div class="topline">
-          <span class="num">30</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ทอด</div>
-        <div class="roman">tôt</div>
-        <div class="meaning">לטגן בשמן עמוק</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ผัด pàt להקפיץ / לטגן בווק" 
-              style="--accent:#3d78ba" onclick="playWord(30, this)" aria-label="ผัด להקפיץ / לטגן בווק">
-        <div class="topline">
-          <span class="num">31</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ผัด</div>
-        <div class="roman">pàt</div>
-        <div class="meaning">להקפיץ / לטגן בווק</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ย่าง yâang לצלות / לגריל" 
-              style="--accent:#3d78ba" onclick="playWord(31, this)" aria-label="ย่าง לצלות / לגריל">
-        <div class="topline">
-          <span class="num">32</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ย่าง</div>
-        <div class="roman">yâang</div>
-        <div class="meaning">לצלות / לגריל</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="นึ่ง nêung לאדות" 
-              style="--accent:#3d78ba" onclick="playWord(32, this)" aria-label="นึ่ง לאדות">
-        <div class="topline">
-          <span class="num">33</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">นึ่ง</div>
-        <div class="roman">nêung</div>
-        <div class="meaning">לאדות</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="อบ òp לאפות" 
-              style="--accent:#3d78ba" onclick="playWord(33, this)" aria-label="อบ לאפות">
-        <div class="topline">
-          <span class="num">34</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">อบ</div>
-        <div class="roman">òp</div>
-        <div class="meaning">לאפות</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="หั่น hàn לחתוך / לקצוץ" 
-              style="--accent:#3d78ba" onclick="playWord(34, this)" aria-label="หั่น לחתוך / לקצוץ">
-        <div class="topline">
-          <span class="num">35</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">หั่น</div>
-        <div class="roman">hàn</div>
-        <div class="meaning">לחתוך / לקצוץ</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ปอก bpòk לקלף" 
-              style="--accent:#3d78ba" onclick="playWord(35, this)" aria-label="ปอก לקלף">
-        <div class="topline">
-          <span class="num">36</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ปอก</div>
-        <div class="roman">bpòk</div>
-        <div class="meaning">לקלף</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="ตัก dtàk לגרוף / לקחת בכף" 
-              style="--accent:#3d78ba" onclick="playWord(36, this)" aria-label="ตัก לגרוף / לקחת בכף">
-        <div class="topline">
-          <span class="num">37</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ตัก</div>
-        <div class="roman">dtàk</div>
-        <div class="meaning">לגרוף / לקחת בכף</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="เท tay למזוג" 
-              style="--accent:#3d78ba" onclick="playWord(37, this)" aria-label="เท למזוג">
-        <div class="topline">
-          <span class="num">38</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เท</div>
-        <div class="roman">tay</div>
-        <div class="meaning">למזוג</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="สั่ง sàng להזמין (אוכל)" 
-              style="--accent:#3d78ba" onclick="playWord(38, this)" aria-label="สั่ง להזמין (אוכל)">
-        <div class="topline">
-          <span class="num">39</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">สั่ง</div>
-        <div class="roman">sàng</div>
-        <div class="meaning">להזמין (אוכל)</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="2" data-search="เสิร์ฟ sèrf להגיש" 
-              style="--accent:#3d78ba" onclick="playWord(39, this)" aria-label="เสิร์ฟ להגיש">
-        <div class="topline">
-          <span class="num">40</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เสิร์ฟ</div>
-        <div class="roman">sèrf</div>
-        <div class="meaning">להגיש</div>
-        <div class="setname">אוכל ובישול</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="เดิน dern ללכת ברגל" 
-              style="--accent:#cd392f" onclick="playWord(40, this)" aria-label="เดิน ללכת ברגל">
-        <div class="topline">
-          <span class="num">41</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เดิน</div>
-        <div class="roman">dern</div>
-        <div class="meaning">ללכת ברגל</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="วิ่ง wîng לרוץ" 
-              style="--accent:#cd392f" onclick="playWord(41, this)" aria-label="วิ่ง לרוץ">
-        <div class="topline">
-          <span class="num">42</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">วิ่ง</div>
-        <div class="roman">wîng</div>
-        <div class="meaning">לרוץ</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ยืน yeun לעמוד" 
-              style="--accent:#cd392f" onclick="playWord(42, this)" aria-label="ยืน לעמוד">
-        <div class="topline">
-          <span class="num">43</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ยืน</div>
-        <div class="roman">yeun</div>
-        <div class="meaning">לעמוד</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="นั่ง nâng לשבת" 
-              style="--accent:#cd392f" onclick="playWord(43, this)" aria-label="นั่ง לשבת">
-        <div class="topline">
-          <span class="num">44</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">นั่ง</div>
-        <div class="roman">nâng</div>
-        <div class="meaning">לשבת</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="นอน non לשכב / לישון" 
-              style="--accent:#cd392f" onclick="playWord(44, this)" aria-label="นอน לשכב / לישון">
-        <div class="topline">
-          <span class="num">45</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">นอน</div>
-        <div class="roman">non</div>
-        <div class="meaning">לשכב / לישון</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="กระโดด grà-dòht לקפוץ" 
-              style="--accent:#cd392f" onclick="playWord(45, this)" aria-label="กระโดด לקפוץ">
-        <div class="topline">
-          <span class="num">46</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">กระโดด</div>
-        <div class="roman">grà-dòht</div>
-        <div class="meaning">לקפוץ</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="คลาน klaan לזחול" 
-              style="--accent:#cd392f" onclick="playWord(46, this)" aria-label="คลาน לזחול">
-        <div class="topline">
-          <span class="num">47</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">คลาน</div>
-        <div class="roman">klaan</div>
-        <div class="meaning">לזחול</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ปีน bpeen לטפס" 
-              style="--accent:#cd392f" onclick="playWord(47, this)" aria-label="ปีน לטפס">
-        <div class="topline">
-          <span class="num">48</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ปีน</div>
-        <div class="roman">bpeen</div>
-        <div class="meaning">לטפס</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ว่ายน้ำ wâai náam לשחות" 
-              style="--accent:#cd392f" onclick="playWord(48, this)" aria-label="ว่ายน้ำ לשחות">
-        <div class="topline">
-          <span class="num">49</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ว่ายน้ำ</div>
-        <div class="roman">wâai náam</div>
-        <div class="meaning">לשחות</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ขับ kàp לנהוג" 
-              style="--accent:#cd392f" onclick="playWord(49, this)" aria-label="ขับ לנהוג">
-        <div class="topline">
-          <span class="num">50</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ขับ</div>
-        <div class="roman">kàp</div>
-        <div class="meaning">לנהוג</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ขี่ kèe לרכוב" 
-              style="--accent:#cd392f" onclick="playWord(50, this)" aria-label="ขี่ לרכוב">
-        <div class="topline">
-          <span class="num">51</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ขี่</div>
-        <div class="roman">kèe</div>
-        <div class="meaning">לרכוב</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="บิน bin לטוס / לעוף" 
-              style="--accent:#cd392f" onclick="playWord(51, this)" aria-label="บิน לטוס / לעוף">
-        <div class="topline">
-          <span class="num">52</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">บิน</div>
-        <div class="roman">bin</div>
-        <div class="meaning">לטוס / לעוף</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ขึ้น kêun לעלות / לעלות על" 
-              style="--accent:#cd392f" onclick="playWord(52, this)" aria-label="ขึ้น לעלות / לעלות על">
-        <div class="topline">
-          <span class="num">53</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ขึ้น</div>
-        <div class="roman">kêun</div>
-        <div class="meaning">לעלות / לעלות על</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ลง long לרדת / לרדת מ־" 
-              style="--accent:#cd392f" onclick="playWord(53, this)" aria-label="ลง לרדת / לרדת מ־">
-        <div class="topline">
-          <span class="num">54</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ลง</div>
-        <div class="roman">long</div>
-        <div class="meaning">לרדת / לרדת מ־</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="เข้า kâo להיכנס" 
-              style="--accent:#cd392f" onclick="playWord(54, this)" aria-label="เข้า להיכנס">
-        <div class="topline">
-          <span class="num">55</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เข้า</div>
-        <div class="roman">kâo</div>
-        <div class="meaning">להיכנס</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ออก òk לצאת / לעזוב" 
-              style="--accent:#cd392f" onclick="playWord(55, this)" aria-label="ออก לצאת / לעזוב">
-        <div class="topline">
-          <span class="num">56</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ออก</div>
-        <div class="roman">òk</div>
-        <div class="meaning">לצאת / לעזוב</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="กลับ glàp לחזור" 
-              style="--accent:#cd392f" onclick="playWord(56, this)" aria-label="กลับ לחזור">
-        <div class="topline">
-          <span class="num">57</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">กลับ</div>
-        <div class="roman">glàp</div>
-        <div class="meaning">לחזור</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="ถึง tĕung להגיע" 
-              style="--accent:#cd392f" onclick="playWord(57, this)" aria-label="ถึง להגיע">
-        <div class="topline">
-          <span class="num">58</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ถึง</div>
-        <div class="roman">tĕung</div>
-        <div class="meaning">להגיע</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="เดินทาง dern taang לטייל / לנסוע" 
-              style="--accent:#cd392f" onclick="playWord(58, this)" aria-label="เดินทาง לטייל / לנסוע">
-        <div class="topline">
-          <span class="num">59</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เดินทาง</div>
-        <div class="roman">dern taang</div>
-        <div class="meaning">לטייל / לנסוע</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="3" data-search="หยุด yùt לעצור" 
-              style="--accent:#cd392f" onclick="playWord(59, this)" aria-label="หยุด לעצור">
-        <div class="topline">
-          <span class="num">60</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">หยุด</div>
-        <div class="roman">yùt</div>
-        <div class="meaning">לעצור</div>
-        <div class="setname">תנועה ונסיעות</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="คุย kui לשוחח / לדבר" 
-              style="--accent:#e99200" onclick="playWord(60, this)" aria-label="คุย לשוחח / לדבר">
-        <div class="topline">
-          <span class="num">61</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">คุย</div>
-        <div class="roman">kui</div>
-        <div class="meaning">לשוחח / לדבר</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="เล่า lâo לספר סיפור" 
-              style="--accent:#e99200" onclick="playWord(61, this)" aria-label="เล่า לספר סיפור">
-        <div class="topline">
-          <span class="num">62</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เล่า</div>
-        <div class="roman">lâo</div>
-        <div class="meaning">לספר סיפור</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="อธิบาย à-tí-baai להסביר" 
-              style="--accent:#e99200" onclick="playWord(62, this)" aria-label="อธิบาย להסביר">
-        <div class="topline">
-          <span class="num">63</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">อธิบาย</div>
-        <div class="roman">à-tí-baai</div>
-        <div class="meaning">להסביר</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="แปล bplae לתרגם" 
-              style="--accent:#e99200" onclick="playWord(63, this)" aria-label="แปล לתרגם">
-        <div class="topline">
-          <span class="num">64</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">แปล</div>
-        <div class="roman">bplae</div>
-        <div class="meaning">לתרגם</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="เรียก rîiak לקרוא למישהו" 
-              style="--accent:#e99200" onclick="playWord(64, this)" aria-label="เรียก לקרוא למישהו">
-        <div class="topline">
-          <span class="num">65</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เรียก</div>
-        <div class="roman">rîiak</div>
-        <div class="meaning">לקרוא למישהו</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="โทร toh להתקשר בטלפון" 
-              style="--accent:#e99200" onclick="playWord(65, this)" aria-label="โทร להתקשר בטלפון">
-        <div class="topline">
-          <span class="num">66</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">โทร</div>
-        <div class="roman">toh</div>
-        <div class="meaning">להתקשר בטלפון</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ทักทาย ták taai לברך / לומר שלום" 
-              style="--accent:#e99200" onclick="playWord(66, this)" aria-label="ทักทาย לברך / לומר שלום">
-        <div class="topline">
-          <span class="num">67</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ทักทาย</div>
-        <div class="roman">ták taai</div>
-        <div class="meaning">לברך / לומר שלום</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ตะโกน dtà-gohn לצעוק" 
-              style="--accent:#e99200" onclick="playWord(67, this)" aria-label="ตะโกน לצעוק">
-        <div class="topline">
-          <span class="num">68</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ตะโกน</div>
-        <div class="roman">dtà-gohn</div>
-        <div class="meaning">לצעוק</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="กระซิบ grà-síp ללחוש" 
-              style="--accent:#e99200" onclick="playWord(68, this)" aria-label="กระซิบ ללחוש">
-        <div class="topline">
-          <span class="num">69</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">กระซิบ</div>
-        <div class="roman">grà-síp</div>
-        <div class="meaning">ללחוש</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="เถียง tĭiang להתווכח" 
-              style="--accent:#e99200" onclick="playWord(69, this)" aria-label="เถียง להתווכח">
-        <div class="topline">
-          <span class="num">70</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เถียง</div>
-        <div class="roman">tĭiang</div>
-        <div class="meaning">להתווכח</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="บ่น bòn להתלונן" 
-              style="--accent:#e99200" onclick="playWord(70, this)" aria-label="บ่น להתלונן">
-        <div class="topline">
-          <span class="num">71</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">บ่น</div>
-        <div class="roman">bòn</div>
-        <div class="meaning">להתלונן</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ชม chom להחמיא / לשבח" 
-              style="--accent:#e99200" onclick="playWord(71, this)" aria-label="ชม להחמיא / לשבח">
-        <div class="topline">
-          <span class="num">72</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ชม</div>
-        <div class="roman">chom</div>
-        <div class="meaning">להחמיא / לשבח</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ขอ kŏr לבקש" 
-              style="--accent:#e99200" onclick="playWord(72, this)" aria-label="ขอ לבקש">
-        <div class="topline">
-          <span class="num">73</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ขอ</div>
-        <div class="roman">kŏr</div>
-        <div class="meaning">לבקש</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ขอโทษ kŏr tôht להתנצל" 
-              style="--accent:#e99200" onclick="playWord(73, this)" aria-label="ขอโทษ להתנצל">
-        <div class="topline">
-          <span class="num">74</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ขอโทษ</div>
-        <div class="roman">kŏr tôht</div>
-        <div class="meaning">להתנצל</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ขอบคุณ kòp kun להודות / לומר תודה" 
-              style="--accent:#e99200" onclick="playWord(74, this)" aria-label="ขอบคุณ להודות / לומר תודה">
-        <div class="topline">
-          <span class="num">75</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ขอบคุณ</div>
-        <div class="roman">kòp kun</div>
-        <div class="meaning">להודות / לומר תודה</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ตกลง dtòk long להסכים / לסגור עסקה" 
-              style="--accent:#e99200" onclick="playWord(75, this)" aria-label="ตกลง להסכים / לסגור עסקה">
-        <div class="topline">
-          <span class="num">76</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ตกลง</div>
-        <div class="roman">dtòk long</div>
-        <div class="meaning">להסכים / לסגור עסקה</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="ปฏิเสธ bpà-dtì-sèt לסרב" 
-              style="--accent:#e99200" onclick="playWord(76, this)" aria-label="ปฏิเสธ לסרב">
-        <div class="topline">
-          <span class="num">77</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ปฏิเสธ</div>
-        <div class="roman">bpà-dtì-sèt</div>
-        <div class="meaning">לסרב</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="แนะนำ náe nam להציג / להמליץ" 
-              style="--accent:#e99200" onclick="playWord(77, this)" aria-label="แนะนำ להציג / להמליץ">
-        <div class="topline">
-          <span class="num">78</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">แนะนำ</div>
-        <div class="roman">náe nam</div>
-        <div class="meaning">להציג / להמליץ</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="เชิญ chern להזמין" 
-              style="--accent:#e99200" onclick="playWord(78, this)" aria-label="เชิญ להזמין">
-        <div class="topline">
-          <span class="num">79</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เชิญ</div>
-        <div class="roman">chern</div>
-        <div class="meaning">להזמין</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="4" data-search="สัญญา săn-yaa להבטיח" 
-              style="--accent:#e99200" onclick="playWord(79, this)" aria-label="สัญญา להבטיח">
-        <div class="topline">
-          <span class="num">80</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">สัญญา</div>
-        <div class="roman">săn-yaa</div>
-        <div class="meaning">להבטיח</div>
-        <div class="setname">דיבור ותקשורת</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="เรียน riian ללמוד" 
-              style="--accent:#824caf" onclick="playWord(80, this)" aria-label="เรียน ללמוד">
-        <div class="topline">
-          <span class="num">81</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เรียน</div>
-        <div class="roman">riian</div>
-        <div class="meaning">ללמוד</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="สอน sŏn ללמד" 
-              style="--accent:#824caf" onclick="playWord(81, this)" aria-label="สอน ללמד">
-        <div class="topline">
-          <span class="num">82</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">สอน</div>
-        <div class="roman">sŏn</div>
-        <div class="meaning">ללמד</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="อ่าน àan לקרוא" 
-              style="--accent:#824caf" onclick="playWord(82, this)" aria-label="อ่าน לקרוא">
-        <div class="topline">
-          <span class="num">83</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">อ่าน</div>
-        <div class="roman">àan</div>
-        <div class="meaning">לקרוא</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="เขียน kĭian לכתוב" 
-              style="--accent:#824caf" onclick="playWord(83, this)" aria-label="เขียน לכתוב">
-        <div class="topline">
-          <span class="num">84</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เขียน</div>
-        <div class="roman">kĭian</div>
-        <div class="meaning">לכתוב</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="จำ jam לזכור" 
-              style="--accent:#824caf" onclick="playWord(84, this)" aria-label="จำ לזכור">
-        <div class="topline">
-          <span class="num">85</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">จำ</div>
-        <div class="roman">jam</div>
-        <div class="meaning">לזכור</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="ลืม leum לשכוח" 
-              style="--accent:#824caf" onclick="playWord(85, this)" aria-label="ลืม לשכוח">
-        <div class="topline">
-          <span class="num">86</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ลืม</div>
-        <div class="roman">leum</div>
-        <div class="meaning">לשכוח</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="ท่อง tông לשנן / לדקלם" 
-              style="--accent:#824caf" onclick="playWord(86, this)" aria-label="ท่อง לשנן / לדקלם">
-        <div class="topline">
-          <span class="num">87</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ท่อง</div>
-        <div class="roman">tông</div>
-        <div class="meaning">לשנן / לדקלם</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="เข้าใจ kâo jai להבין" 
-              style="--accent:#824caf" onclick="playWord(87, this)" aria-label="เข้าใจ להבין">
-        <div class="topline">
-          <span class="num">88</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เข้าใจ</div>
-        <div class="roman">kâo jai</div>
-        <div class="meaning">להבין</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="รู้จัก róo jàk להכיר אדם / מקום" 
-              style="--accent:#824caf" onclick="playWord(88, this)" aria-label="รู้จัก להכיר אדם / מקום">
-        <div class="topline">
-          <span class="num">89</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">รู้จัก</div>
-        <div class="roman">róo jàk</div>
-        <div class="meaning">להכיר אדם / מקום</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="เรียนรู้ riian róo ללמוד / לרכוש ידע" 
-              style="--accent:#824caf" onclick="playWord(89, this)" aria-label="เรียนรู้ ללמוד / לרכוש ידע">
-        <div class="topline">
-          <span class="num">90</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เรียนรู้</div>
-        <div class="roman">riian róo</div>
-        <div class="meaning">ללמוד / לרכוש ידע</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="ฝึก fèuk לתרגל" 
-              style="--accent:#824caf" onclick="playWord(90, this)" aria-label="ฝึก לתרגל">
-        <div class="topline">
-          <span class="num">91</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ฝึก</div>
-        <div class="roman">fèuk</div>
-        <div class="meaning">לתרגל</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="ทบทวน tóp tuuan לחזור על החומר" 
-              style="--accent:#824caf" onclick="playWord(91, this)" aria-label="ทบทวน לחזור על החומר">
-        <div class="topline">
-          <span class="num">92</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ทบทวน</div>
-        <div class="roman">tóp tuuan</div>
-        <div class="meaning">לחזור על החומר</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="สงสัย sŏng-săi לתהות / להטיל ספק" 
-              style="--accent:#824caf" onclick="playWord(92, this)" aria-label="สงสัย לתהות / להטיל ספק">
-        <div class="topline">
-          <span class="num">93</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">สงสัย</div>
-        <div class="roman">sŏng-săi</div>
-        <div class="meaning">לתהות / להטיל ספק</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="ตัดสินใจ dtàt sĭn jai להחליט" 
-              style="--accent:#824caf" onclick="playWord(93, this)" aria-label="ตัดสินใจ להחליט">
-        <div class="topline">
-          <span class="num">94</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">ตัดสินใจ</div>
-        <div class="roman">dtàt sĭn jai</div>
-        <div class="meaning">להחליט</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="วางแผน waang păen לתכנן" 
-              style="--accent:#824caf" onclick="playWord(94, this)" aria-label="วางแผน לתכנן">
-        <div class="topline">
-          <span class="num">95</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">วางแผน</div>
-        <div class="roman">waang păen</div>
-        <div class="meaning">לתכנן</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="เดา dao לנחש" 
-              style="--accent:#824caf" onclick="playWord(95, this)" aria-label="เดา לנחש">
-        <div class="topline">
-          <span class="num">96</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เดา</div>
-        <div class="roman">dao</div>
-        <div class="meaning">לנחש</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="สังเกต săng-gèt להבחין / להתבונן" 
-              style="--accent:#824caf" onclick="playWord(96, this)" aria-label="สังเกต להבחין / להתבונן">
-        <div class="topline">
-          <span class="num">97</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">สังเกต</div>
-        <div class="roman">săng-gèt</div>
-        <div class="meaning">להבחין / להתבונן</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="เปรียบเทียบ bprìiap tîiap להשוות" 
-              style="--accent:#824caf" onclick="playWord(97, this)" aria-label="เปรียบเทียบ להשוות">
-        <div class="topline">
-          <span class="num">98</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">เปรียบเทียบ</div>
-        <div class="roman">bprìiap tîiap</div>
-        <div class="meaning">להשוות</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="คำนวณ kam-nuuan לחשב" 
-              style="--accent:#824caf" onclick="playWord(98, this)" aria-label="คำนวณ לחשב">
-        <div class="topline">
-          <span class="num">99</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">คำนวณ</div>
-        <div class="roman">kam-nuuan</div>
-        <div class="meaning">לחשב</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-      <button class="card" data-set="5" data-search="สอบ sòp להיבחן" 
-              style="--accent:#824caf" onclick="playWord(99, this)" aria-label="สอบ להיבחן">
-        <div class="topline">
-          <span class="num">100</span>
-          <span class="play">▶</span>
-        </div>
-        <div class="thai">สอบ</div>
-        <div class="roman">sòp</div>
-        <div class="meaning">להיבחן</div>
-        <div class="setname">לימוד וחשיבה</div>
-      </button>
-    
-  </div>
+  <div class="grid" id="grid"></div>
   <div id="status"></div>
 </div>
 
 <audio id="player" preload="none"></audio>
 
+<script src="data/vocabulary.js"></script>
 <script>
-
-const words = [{"thai": "เป็น", "roman": "bpen"}, {"thai": "มี", "roman": "mee"}, {"thai": "ทำ", "roman": "tam"}, {"thai": "ไป", "roman": "bpai"}, {"thai": "มา", "roman": "maa"}, {"thai": "อยู่", "roman": "yòo"}, {"thai": "ให้", "roman": "hâi"}, {"thai": "เอา", "roman": "ao"}, {"thai": "ได้", "roman": "dâai"}, {"thai": "ใช้", "roman": "chái"}, {"thai": "รู้", "roman": "róo"}, {"thai": "เห็น", "roman": "hĕn"}, {"thai": "ดู", "roman": "doo"}, {"thai": "ฟัง", "roman": "fang"}, {"thai": "พูด", "roman": "pôot"}, {"thai": "บอก", "roman": "bòk"}, {"thai": "ถาม", "roman": "tăam"}, {"thai": "ตอบ", "roman": "dtòp"}, {"thai": "คิด", "roman": "kít"}, {"thai": "อยาก", "roman": "yàak"}, {"thai": "กิน", "roman": "gin"}, {"thai": "ทาน", "roman": "taan"}, {"thai": "ดื่ม", "roman": "dèum"}, {"thai": "ชิม", "roman": "chim"}, {"thai": "หิว", "roman": "hĭw"}, {"thai": "อิ่ม", "roman": "ìm"}, {"thai": "ทำอาหาร", "roman": "tam aa-hăan"}, {"thai": "หุง", "roman": "hŭng"}, {"thai": "ต้ม", "roman": "dtôm"}, {"thai": "ทอด", "roman": "tôt"}, {"thai": "ผัด", "roman": "pàt"}, {"thai": "ย่าง", "roman": "yâang"}, {"thai": "นึ่ง", "roman": "nêung"}, {"thai": "อบ", "roman": "òp"}, {"thai": "หั่น", "roman": "hàn"}, {"thai": "ปอก", "roman": "bpòk"}, {"thai": "ตัก", "roman": "dtàk"}, {"thai": "เท", "roman": "tay"}, {"thai": "สั่ง", "roman": "sàng"}, {"thai": "เสิร์ฟ", "roman": "sèrf"}, {"thai": "เดิน", "roman": "dern"}, {"thai": "วิ่ง", "roman": "wîng"}, {"thai": "ยืน", "roman": "yeun"}, {"thai": "นั่ง", "roman": "nâng"}, {"thai": "นอน", "roman": "non"}, {"thai": "กระโดด", "roman": "grà-dòht"}, {"thai": "คลาน", "roman": "klaan"}, {"thai": "ปีน", "roman": "bpeen"}, {"thai": "ว่ายน้ำ", "roman": "wâai náam"}, {"thai": "ขับ", "roman": "kàp"}, {"thai": "ขี่", "roman": "kèe"}, {"thai": "บิน", "roman": "bin"}, {"thai": "ขึ้น", "roman": "kêun"}, {"thai": "ลง", "roman": "long"}, {"thai": "เข้า", "roman": "kâo"}, {"thai": "ออก", "roman": "òk"}, {"thai": "กลับ", "roman": "glàp"}, {"thai": "ถึง", "roman": "tĕung"}, {"thai": "เดินทาง", "roman": "dern taang"}, {"thai": "หยุด", "roman": "yùt"}, {"thai": "คุย", "roman": "kui"}, {"thai": "เล่า", "roman": "lâo"}, {"thai": "อธิบาย", "roman": "à-tí-baai"}, {"thai": "แปล", "roman": "bplae"}, {"thai": "เรียก", "roman": "rîiak"}, {"thai": "โทร", "roman": "toh"}, {"thai": "ทักทาย", "roman": "ták taai"}, {"thai": "ตะโกน", "roman": "dtà-gohn"}, {"thai": "กระซิบ", "roman": "grà-síp"}, {"thai": "เถียง", "roman": "tĭiang"}, {"thai": "บ่น", "roman": "bòn"}, {"thai": "ชม", "roman": "chom"}, {"thai": "ขอ", "roman": "kŏr"}, {"thai": "ขอโทษ", "roman": "kŏr tôht"}, {"thai": "ขอบคุณ", "roman": "kòp kun"}, {"thai": "ตกลง", "roman": "dtòk long"}, {"thai": "ปฏิเสธ", "roman": "bpà-dtì-sèt"}, {"thai": "แนะนำ", "roman": "náe nam"}, {"thai": "เชิญ", "roman": "chern"}, {"thai": "สัญญา", "roman": "săn-yaa"}, {"thai": "เรียน", "roman": "riian"}, {"thai": "สอน", "roman": "sŏn"}, {"thai": "อ่าน", "roman": "àan"}, {"thai": "เขียน", "roman": "kĭian"}, {"thai": "จำ", "roman": "jam"}, {"thai": "ลืม", "roman": "leum"}, {"thai": "ท่อง", "roman": "tông"}, {"thai": "เข้าใจ", "roman": "kâo jai"}, {"thai": "รู้จัก", "roman": "róo jàk"}, {"thai": "เรียนรู้", "roman": "riian róo"}, {"thai": "ฝึก", "roman": "fèuk"}, {"thai": "ทบทวน", "roman": "tóp tuuan"}, {"thai": "สงสัย", "roman": "sŏng-săi"}, {"thai": "ตัดสินใจ", "roman": "dtàt sĭn jai"}, {"thai": "วางแผน", "roman": "waang păen"}, {"thai": "เดา", "roman": "dao"}, {"thai": "สังเกต", "roman": "săng-gèt"}, {"thai": "เปรียบเทียบ", "roman": "bprìiap tîiap"}, {"thai": "คำนวณ", "roman": "kam-nuuan"}, {"thai": "สอบ", "roman": "sòp"}];
+const vocabulary = window.VOCABULARY_DATA;
+const words = vocabulary.items;
+const categories = new Map(vocabulary.categories.map(category => [category.key, category]));
 let activeFilter = "all";
-let currentButton = null;
 const revealTimers = new WeakMap();
 const player = document.getElementById("player");
 const status = document.getElementById("status");
+const grid = document.getElementById("grid");
+const filters = document.getElementById("filters");
+const search = document.getElementById("search");
 
 function audioSrc(index){
   return "audio/word-" + String(index + 1).padStart(3, "0") + ".mp3";
 }
 
-function setFilter(value, btn){
+function normalizedSearch(value){
+  return value.normalize("NFKC").toLocaleLowerCase().trim();
+}
+
+function makeFilter(value, label, active = false){
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "filter" + (active ? " active" : "");
+  button.dataset.filter = value;
+  button.textContent = label;
+  button.addEventListener("click", () => setFilter(value, button));
+  return button;
+}
+
+function renderFilters(){
+  const fragment = document.createDocumentFragment();
+  fragment.append(makeFilter("all", "הכול", true));
+  vocabulary.categories.forEach(category => {
+    fragment.append(makeFilter(category.key, category.shortLabel));
+  });
+  filters.append(fragment);
+}
+
+function renderCards(){
+  const fragment = document.createDocumentFragment();
+  words.forEach((item, index) => {
+    const category = categories.get(item.category);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "card";
+    button.dataset.set = item.category;
+    button.dataset.search = normalizedSearch(
+      [item.thai, item.roman, item.hebrew, item.english || ""].join(" ")
+    );
+    button.style.setProperty("--accent", category.accent);
+    button.setAttribute("aria-label", item.thai + " — " + item.hebrew);
+
+    const topLine = document.createElement("div");
+    topLine.className = "topline";
+    const number = document.createElement("span");
+    number.className = "num";
+    number.textContent = String(index + 1);
+    const play = document.createElement("span");
+    play.className = "play";
+    play.textContent = "▶";
+    topLine.append(number, play);
+
+    const thai = document.createElement("div");
+    thai.className = "thai";
+    thai.textContent = item.thai;
+    const roman = document.createElement("div");
+    roman.className = "roman";
+    roman.textContent = item.roman;
+    const meaning = document.createElement("div");
+    meaning.className = "meaning";
+    meaning.textContent = item.hebrew;
+    const setName = document.createElement("div");
+    setName.className = "setname";
+    setName.textContent = category.label;
+    button.append(topLine, thai, roman, meaning, setName);
+    button.addEventListener("click", () => playWord(index, button));
+    fragment.append(button);
+  });
+  grid.append(fragment);
+}
+
+function setFilter(value, button){
   activeFilter = value;
-  document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
+  document.querySelectorAll(".filter").forEach(item => item.classList.remove("active"));
+  button.classList.add("active");
   applyFilters();
 }
 
 function applyFilters(){
-  const q = document.getElementById("search").value.trim().toLowerCase();
+  const query = normalizedSearch(search.value);
+  let visible = 0;
   document.querySelectorAll(".card").forEach(card => {
-    const setOk = activeFilter === "all" || card.dataset.set === activeFilter;
-    const qOk = !q || card.dataset.search.toLowerCase().includes(q);
-    card.classList.toggle("hidden", !(setOk && qOk));
+    const categoryMatches = activeFilter === "all" || card.dataset.set === activeFilter;
+    const queryMatches = !query || card.dataset.search.includes(query);
+    const show = categoryMatches && queryMatches;
+    card.classList.toggle("hidden", !show);
+    if (show) visible += 1;
   });
+  status.textContent = `מוצגים ${visible.toLocaleString("he-IL")} מתוך ${words.length.toLocaleString("he-IL")} כרטיסים`;
 }
 
 function resetButtons(){
-  document.querySelectorAll(".card").forEach(b => b.classList.remove("playing"));
+  document.querySelectorAll(".card.playing").forEach(button => button.classList.remove("playing"));
 }
 
 function revealMeaning(button){
@@ -1387,7 +257,6 @@ function revealMeaning(button){
 
 function playWord(index, button){
   const item = words[index];
-  currentButton = button;
   resetButtons();
   button.classList.add("playing");
   revealMeaning(button);
@@ -1395,8 +264,8 @@ function playWord(index, button){
   player.pause();
   player.src = audioSrc(index);
   player.currentTime = 0;
-  const p = player.play();
-  if (p && p.catch) p.catch(failAudio);
+  const playback = player.play();
+  if (playback && playback.catch) playback.catch(failAudio);
 }
 
 function failAudio(){
@@ -1406,11 +275,14 @@ function failAudio(){
 
 player.addEventListener("ended", () => {
   resetButtons();
-  status.textContent = "";
+  applyFilters();
 });
-
 player.addEventListener("error", failAudio);
+search.addEventListener("input", applyFilters);
 
+renderFilters();
+renderCards();
+applyFilters();
 </script>
 </body>
 </html>
